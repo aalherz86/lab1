@@ -1,6 +1,6 @@
 //
-//modified by: Ali Alherz
-//date: 8/27/2019
+//modified by: Ali Alherz, Mohand Algorabi
+//date: 9/24/2019
 //
 //3350 Spring 2019 Lab-1
 //This program demonstrates the use of OpenGL and XWindows
@@ -42,10 +42,12 @@ using namespace std;
 #include "fonts.h"
 
 
-const int MAX_PARTICLES = 10000;
+const int MAX_PARTICLES = 30000;
 const float GRAVITY     = 0.1;
 
 //some structures
+
+
 
 struct Vec {
 	float x, y, z;
@@ -122,14 +124,14 @@ int main()
 //-----------------------------------------------------------------------------
 Global::Global()
 {
-	xres = 800;
-	yres = 600;
+	xres = 500;
+	yres = 360;
 	//define a box shape
 	for (int i = 0; i < 5; i++) {
-		box[i].width = 100;
+		box[i].width = 70;
 		box[i].height = 10;
-		box[i].center.x = 120 + i*65;
-		box[i].center.y = 500 - i*60;
+		box[i].center.x = 70 + i*65;
+		box[i].center.y = 300 - i*60;
 	}
 	n = 0;
 }
@@ -228,7 +230,7 @@ void makeParticle(int x, int y)
 	p->s.center.x = x;
 	p->s.center.y = y;
 	p->velocity.y =  ((double)rand()/(double)RAND_MAX) -0.5;
-	p->velocity.x =  ((double)rand()/(double)RAND_MAX) -0.5 + 0.25;
+	p->velocity.x =  ((double)rand()/(double)RAND_MAX) -0.0 + 0.25;
 	++g.n;
 }
 
@@ -374,32 +376,38 @@ void render()
 	glPopMatrix();
 	}
 	
+	
 
     //Print texts
-	r[0].bot = 494;
-	r[0].left = 84;
+	r[0].bot = 295;
+	r[0].left = 40;
 	r[0].center = 0;
 	ggprint8b(&r[0], 16, 0x00ffff00, "REQUIREMENTS");
+
+	r[0].bot = 235;
+	r[0].left = 110;
+	r[0].center = 0;
+	ggprint8b(&r[0], 16, 0x00ffff00, "DESIGN");
 	
-	r[1].bot = 434;
-	r[1].left = 150;
-	r[1].center = 0;
-	ggprint8b(&r[1], 16, 0x00ffff00, "DESIGN");
-	
-	r[2].bot = 374;
-	r[2].left = 216;
+	r[2].bot = 175;
+	r[2].left = 160;
 	r[2].center = 0;
 	ggprint8b(&r[2], 16, 0x00ffff00, "IMPLEMENTATION");
 	
-	r[3].bot = 314;
-	r[3].left = 282;
+	r[3].bot = 115;
+	r[3].left = 230;
 	r[3].center = 0;
 	ggprint8b(&r[3], 16, 0x00ffff00, "VERIFICATION");
 	
-	r[4].bot = 254;
-	r[4].left = 348;
+	r[4].bot = 55;
+	r[4].left = 300;
 	r[4].center = 0;
 	ggprint8b(&r[4], 16, 0x00ffff00, "MAINTENANCE");
+
+	r[0].bot = 340;
+	r[0].left = 400;
+	r[0].center = 0;
+	ggprint8b(&r[0], 16, 0x00fe3e3e, "Waterfall Model");
 	
 	
 
@@ -408,7 +416,7 @@ void render()
 	for(int i=0; i<g.n ;i++){
 		//There is at least one particle to draw.
 		glPushMatrix();
-		glColor3ub(150,160,220);
+		glColor3ub(rand()%150,160,220);
 		Vec *c = &g.particle[i].s.center;
 		w = h = 2;
 		glBegin(GL_QUADS);
@@ -419,21 +427,4 @@ void render()
 		glEnd();
 		glPopMatrix();
 	}
-	//
-	//Draw your 2D text here
-
-
-
-
-
-
-
-
-
 }
-
-
-
-
-
-
